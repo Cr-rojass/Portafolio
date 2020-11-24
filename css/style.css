@@ -1,6 +1,6 @@
 /*Hero Section*/
 #hero{
-    background-image: url('/img/computer-bits.gif');
+    background-image: url('../img/computer-bits.gif');
     height:50vh;
     background-position: center;
     background-repeat: no-repeat;
