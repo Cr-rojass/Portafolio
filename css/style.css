@@ -1,0 +1,9 @@
+/*todo con relacion a la imagen de herosection*/
+#hero{
+    background-image: url("img/header.gif");
+    height:50vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
