@@ -7,3 +7,9 @@
     background-size: cover;
     position: relative;
 }
+#text-hero{
+    color: white;
+    text-align: center;
+    padding-left: 5%;
+    padding-top: 5%;
+}
