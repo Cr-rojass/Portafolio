@@ -1,46 +1,144 @@
+/* --- 1. VARIABLES Y CONFIGURACIÓN BASE --- */
+:root {
+    /* Paleta de colores Neon/Cyber */
+    --primary: #8e44ad;
+    --primary-hover: #9b59b6;
+    --background: #0f172a; /* Azul oscuro profundo */
+    --card-bg: #1e293b;
+    --text-main: #f8fafc;
+    --muted: #94a3b8;
+    --font-family: 'Outfit', sans-serif;
+    --spacing-company: 3rem;
+}
+
+body {
+    background-color: var(--background);
+    font-family: var(--font-family);
+    color: var(--text-main);
+    margin: 0;
+}
+
+h1, h2, h3 {
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* --- 2. NAVBAR (GLASSMORPHISM) --- */
+.navbar-custom {
+    position: fixed; /* Fija para que flote sobre todo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Reset de listas para la nav */
+.navbar-custom ul, .navbar-custom li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.5px;
+    white-space: nowrap; 
+    flex-shrink: 0;      
+}
+
+.logo .dot { color: var(--primary); }
+
+.nav-links { display: flex; gap: 2rem; }
+
+.nav-links a {
+    text-decoration: none;
+    color: #cbd5e1;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-links a:hover { color: var(--primary); }
+
+/* Animación subrayado */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* --- 3. HERO SECTION --- */
 header.hero {
-    padding: 8rem 0; /* Un poco más de espacio */
+    padding: 8rem 0; /* Espacio generoso */
     text-align: center;
-    /* Imagen de fondo abstracta oscura de alta calidad */
     background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
-    background-blend-mode: overlay; /* Mezcla la imagen con el color de fondo */
-    background-color: rgba(15, 23, 42, 0.9); /* Oscurece la imagen para leer el texto */
+    background-blend-mode: overlay;
+    background-color: rgba(15, 23, 42, 0.9);
     border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 3rem; /* Separación con el contenido siguiente */
 }
 
-/* Definimos la animación */
+/* Texto Gradiente */
+.gradient-text {
+    background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+/* Animaciones de entrada */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Aplicamos la animación a las secciones principales */
 header.hero h1 { animation: fadeInUp 0.8s ease-out forwards; }
-header.hero p { animation: fadeInUp 0.8s ease-out 0.2s forwards; opacity: 0; } /* 0.2s de retraso */
-header.hero div { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; } /* 0.4s de retraso */
-section#proyectos { animation: fadeInUp 1s ease-out 0.6s forwards; opacity: 0; }
+header.hero p { animation: fadeInUp 0.8s ease-out 0.2s forwards; opacity: 0; }
+header.hero div { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
 
-
+/* --- 4. SKILLS & BADGES --- */
 .skills-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
     margin-top: 1rem;
 }
 
 .skill-badge {
-    background: rgba(255, 255, 255, 0.05); /* Muy sutil */
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 8px 16px;
-    border-radius: 50px; /* Redondo completo */
+    border-radius: 50px;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-main);
@@ -49,18 +147,19 @@ section#proyectos { animation: fadeInUp 1s ease-out 0.6s forwards; opacity: 0; }
 }
 
 .skill-badge:hover {
-    background: rgba(142, 68, 173, 0.2); /* Tinte púrpura al pasar el mouse */
+    background: rgba(142, 68, 173, 0.2);
     border-color: var(--primary);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(142, 68, 173, 0.2);
 }
 
-
+/* --- 5. TIMELINE (TRAYECTORIA) --- */
 .timeline {
     position: relative;
     border-left: 2px solid rgba(255, 255, 255, 0.1);
     margin-left: 10px;
     padding-left: 20px;
+    margin-top: 2rem;
 }
 
 .timeline-item {
@@ -68,17 +167,16 @@ section#proyectos { animation: fadeInUp 1s ease-out 0.6s forwards; opacity: 0; }
     position: relative;
 }
 
-/* El punto (dot) en la línea */
 .timeline-item::before {
     content: '';
     position: absolute;
-    left: -26px; /* Ajuste para centrar en la línea */
+    left: -27px; /* Ajuste preciso */
     top: 5px;
     width: 12px;
     height: 12px;
     background: var(--primary);
     border-radius: 50%;
-    box-shadow: 0 0 10px var(--primary); /* Efecto neón en el punto */
+    box-shadow: 0 0 10px var(--primary);
 }
 
 .timeline-date {
@@ -91,129 +189,58 @@ section#proyectos { animation: fadeInUp 1s ease-out 0.6s forwards; opacity: 0; }
 .timeline-content h3 {
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
-}
-
-@media (max-width: 768px) {
-    header.hero {
-        padding: 4rem 0; /* Reducir a la mitad en móviles */
-    }
-    header.hero h1 {
-        font-size: 2rem; /* Ajustar tamaño de fuente */
-    }
-}
-
-/* Estilos de la Navbar */
-.navbar {
-    position: fixed; /* Se queda fija al hacer scroll */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* Asegura que esté siempre encima de todo */
-    
-    /* El efecto vidrio (Glassmorphism) */
-    background: rgba(15, 23, 42, 0.7); /* Fondo semi-transparente */
-    backdrop-filter: blur(10px); /* El desenfoque mágico */
-    -webkit-backdrop-filter: blur(10px); /* Para Safari */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.nav-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem; /* Mínimo 32px de separación entre el nombre y el menú */
-}
-
-/* Navbar Custom sobreescribiendo a Pico */
-.navbar-custom {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    margin: 0; /* Importante: Pico a veces agrega márgenes */
-    padding: 0;
-    
-    /* Tu estilo Glassmorphism */
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Ajuste para que los links no se vean como botones gigantes (defecto de Pico en nav) */
-.navbar-custom ul {
-    margin: 0;
-    padding: 0;
-}
-
-.navbar-custom li {
-    padding: 0;
-    margin: 0;
-}
-
-
-
-
-.logo {
-    font-size: 1.3rem;
-    font-weight: 700;
     color: var(--text-main);
-    letter-spacing: -0.5px;
-    white-space: nowrap; 
-    flex-shrink: 0;      
 }
 
-.logo .dot {
-    color: var(--primary); /* El punto final en morado */
-}
-
-.nav-links {
-    list-style: none;
+/* --- 6. TARJETAS DE PROYECTOS --- */
+article.project-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
     display: flex;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: #cbd5e1; /* Un blanco un poco apagado */
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-    position: relative;
+article.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.3);
+    border-color: var(--primary);
 }
 
-.nav-links a:hover {
+.tag {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+/* Botones Outline Personalizados */
+button.outline, a[role="button"].outline {
+    border-color: var(--primary);
     color: var(--primary);
 }
-
-/* Pequeña animación de subrayado al pasar el mouse */
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -4px;
-    left: 0;
+button.outline:hover, a[role="button"].outline:hover {
     background-color: var(--primary);
-    transition: width 0.3s ease;
+    color: white;
+    box-shadow: 0 0 15px var(--primary);
+    border-color: var(--primary);
 }
 
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-/* --- ESTILOS DEL MENÚ MÓVIL (JS Version) --- */
-
+/* --- 7. MENÚ MÓVIL (Responsive) --- */
 .hamburger {
     display: none;
     cursor: pointer;
-    z-index: 2000; /* Muy importante: para que esté encima del menú abierto */
+    z-index: 2000;
 }
 
 .bar {
@@ -226,51 +253,43 @@ section#proyectos { animation: fadeInUp 1s ease-out 0.6s forwards; opacity: 0; }
     border-radius: 3px;
 }
 
-/* MEDIA QUERY: Celulares y Tablets */
 @media (max-width: 768px) {
-    .hamburger {
-        display: block;
-    }
+    header.hero { padding: 4rem 0; }
+    header.hero h1 { font-size: 2.2rem; }
+    
+    .hamburger { display: block; }
+    
+    /* Animación X del menú */
+    .hamburger.active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    /* Animación del botón: Las barras giran para formar una X */
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    /* El menú lateral */
+    /* Panel del menú móvil */
     .nav-links {
         position: fixed;
-        left: -100%; /* Escondido */
+        left: -100%;
         top: 0;
         gap: 0;
         flex-direction: column;
-        background: rgba(15, 23, 42, 0.98); /* Fondo oscuro sólido */
+        background: rgba(15, 23, 42, 0.98);
         backdrop-filter: blur(10px);
         width: 100%;
-        height: 100vh; /* Pantalla completa */
+        height: 100vh;
         text-align: center;
         transition: 0.3s ease-in-out;
-        padding-top: 8rem; /* Espacio arriba para no chocar con el logo */
+        padding-top: 8rem;
         box-shadow: 0 10px 10px rgba(0,0,0,0.1);
     }
+    .nav-links.active { left: 0; }
+    .nav-links li { margin: 2rem 0; }
+    .nav-links li a { font-size: 1.5rem; }
+}
 
-    .nav-links.active {
-        left: 0; /* Visible */
-    }
-
-    .nav-links li {
-        margin: 2rem 0;
-    }
-    
-    .nav-links li a {
-        font-size: 1.5rem; /* Letra más grande en móvil */
-    }
+/* --- 8. FOOTER --- */
+footer {
+    margin-top: 5rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 3rem 0;
+    color: var(--muted);
+    text-align: center;
 }
