@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Profesional</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        /* --- PERSONALIZACIÓN IMPRESIONANTE --- */
+        :root {
+            /* Paleta de colores Neon/Cyber */
+            --primary: #8e44ad;
+            --primary-hover: #9b59b6;
+            --background: #0f172a; /* Azul oscuro profundo */
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --muted: #94a3b8;
+            --font-family: 'Outfit', sans-serif;
+            --spacing-company: 3rem;
+        }
+
+        /* Tipografía y Cuerpo */
+        body {
+            background-color: var(--background);
+            font-family: var(--font-family);
+            color: var(--text-main);
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        /* Navegación transparente */
+        nav {
+            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Héroe (Sección principal) */
+        header.hero {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        /* Texto con Gradiente (El toque mágico) */
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        /* Tarjetas de Proyecto (Glassmorphism sutil) */
+        article.project-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        article.project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.3); /* Resplandor púrpura */
+            border-color: var(--primary);
+        }
+
+        article header {
+            margin-bottom: var(--spacing-company);
+        }
+
+        .tag {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Botones personalizados */
+        button.outline, a[role="button"].outline {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        button.outline:hover, a[role="button"].outline:hover {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 3rem 0;
+            color: var(--muted);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar-custom">
+    <div class="nav-content">
+        <div class="logo">Cristian Rojas Salamanca<span class="dot">.</span></div>
+        
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#proyectos">Experiencia</a></li>
+            <li><a href="#contacto" role="button" class="contrast outline">Contacto</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!--
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>PORTAFOLIO</strong></li>
+        </ul>
+        <ul>
+            <li><a href="#proyectos" class="contrast">Proyectos</a></li>
+            <li><a href="#sobre-mi" class="contrast">Sobre mí</a></li>
+            <li><a href="https://github.com/tu-usuario" role="button" class="outline">GitHub</a></li>
+        </ul>
+    </nav>
+-->
+
+    <main class="container">
+        <header class="hero">
+            <h1 class="gradient-text">Cristian Rojas Salamanca</h1>
+            <p style="font-size: 1.5rem; color: var(--muted);">Planificación Estratégica & Control de Gestión | Perfil Tecnológico</p>
+    
+            <div class="skills-container">
+                <span class="skill-badge">Control de Gestión</span>
+                <span class="skill-badge">Análisis de Datos (SPSS/R)</span>
+                <span class="skill-badge">Java / SpringBoot</span>
+                <span class="skill-badge">Liderazgo de Equipos</span>
+                <span class="skill-badge">Mentoring Técnico</span>
+                <span class="skill-badge">Gestión Pública</span>
+            </div>
+        </header>
+
+
+
+
+       <!-- 
+        <main class="container">
+       <header class="hero">
+            <h1 class="gradient-text">Datos, Estrategia y Control</h1>
+            <p style="font-size: 1.5rem; color: var(--muted);">
+                Socioeconomista & Data Analyst | Magíster en Control de Gestión
+            </p>
+            <p>
+                Utilizo <strong>SQL y R</strong> para transformar datos complejos en estrategias de negocio accionables. 
+                El puente técnico entre la toma de decisiones y la ingeniería de datos.
+            </p>
+        </header>
+-->
+
+<section id="sobre-mi" class="container" style="padding-bottom: 0;">
+    <h2 style="text-align: center;">Perfil Profesional</h2>
+        <div class="grid">
+            <p style="font-size: 1.1rem; line-height: 1.6; color: #cbd5e1; max-width: 800px;">
+            Profesional con sólida trayectoria en el sector público y privado, especializado en la intersección entre 
+            <strong>planificación estratégica, análisis de datos y tecnología</strong>. 
+            
+            Actualmente cursando un Magíster en Planificación y Control de Gestión. 
+            Mi experiencia liderando equipos de más de 100 personas en proyectos críticos (como Censo de Poblacion y Vivienda 2024) 
+            se complementa con mi formación técnica como <strong>Programador Full Stack</strong>, 
+            lo que me permite no solo gestionar procesos, sino diseñar soluciones tecnológicas para optimizarlos.
+            </p>
+        </div>
+</section>
+    
+
+<section id="propuesta-valor">
+    <h2 style="text-align: center;">¿Por qué un perfil mixto?</h2>
+    <div class="grid">
+        <article style="border-left: 4px solid var(--primary);">
+            <h3 style="color: var(--primary);"><i class="fas fa-chart-line"></i> Visión Estratégica</h3>
+            <p>
+                Como candidato a Magíster en Control de Gestión, entiendo de KPIs, Balanced Scorecard y planificación financiera. No solo extraigo datos, entiendo <em>qué</em> mueven esos números en la organización.
+            </p>
+        </article>
+        
+        <article style="border-left: 4px solid #3b82f6;"> <h3 style="color: #3b82f6;"><i class="fas fa-database"></i> Ejecución Técnica</h3>
+            <p>
+                Mi certificación Fullstack y dominio avanzado de <strong>Oracle/SQL</strong> y <strong>R</strong> me permiten construir mis propias herramientas, automatizar reportes y dialogar fluidamente con equipos de TI.
+            </p>
+        </article>
+    </div>
+</section>
+
+<!--
+        <section id="experiencia">
+    <h2>Experiencia</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-date">2023 - Presente</div>
+            <div class="timeline-content">
+                <h3>Senior Developer</h3>
+                <p>Empresa Tech • Liderando la migración a la nube.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-date">2021 - 2023</div>
+            <div class="timeline-content">
+                <h3>Frontend Developer</h3>
+                <p>Agencia Digital • Desarrollo de interfaces reactivas.</p>
+            </div>
+        </div>
+    </div>
+</section>
+-->
+<section id="proyectos" class="container">
+    <h2>Trayectoria Relevante</h2>
+    
+    <div class="timeline">
+        
+
+        <div class="timeline-item">
+            <div class="timeline-date">2024 - Presente</div>
+            <div class="timeline-content">
+                <h3>Tutor Asistente Full Stack Java</h3>
+                <p><strong>Talento Digital para Chile.</strong><br>
+                Facilitador técnico y pedagógico en la formación de nuevos desarrolladores. 
+                Apoyo en la resolución de problemas de código (Java, SpringBoot, SQL), 
+                revisión de proyectos y mentoría para asegurar la curva de aprendizaje de los estudiantes.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">Abril 2024 - Presente</div>
+            <div class="timeline-content">
+                <h3>Magíster en Planificación y Control de Gestión</h3>
+                <p>Universidad de Valparaíso. Enfoque en alineamiento estratégico y control directivo.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">2021 - 2024</div>
+            <div class="timeline-content">
+                <h3>Coordinador Operativo & Encargado Regional (INE)</h3>
+                <p>Lideré la operación del Censo de Población y Vivienda 2024 en Cerrillos. 
+                Responsable de un equipo de <strong>100+ personas</strong>, gestión de infraestructura, 
+                control de calidad de datos y cumplimiento de KPIs críticos bajo plazos estrictos.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">2020</div>
+            <div class="timeline-content">
+                <h3>Formación Full Stack Java</h3>
+                <p>Bootcamp Edutecno (Talento Digital). Desarrollo de aplicaciones web con Java, SpringBoot y Motores de Bases de Datos (Oracle/MySQL), adquiriendo la capacidad de dialogar técnicamente con equipos de desarrollo[cite: 17, 19, 98].</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">2014 - 2018</div>
+            <div class="timeline-content">
+                <h3>Gestión Pública y Fomento Productivo</h3>
+                <p>Experiencia en Municipalidad de Maipú y Corp. de Lampa. 
+                Jefe de Adquisiciones y Ejecutivo de Fomento, gestionando licitaciones, 
+                fondos concursables (CORFO/SERCOTEC) y análisis estadístico para toma de decisiones[cite: 65, 66, 70, 71].</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+        <section id="proyectos">
+            <h2 style="border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px;">
+                Proyectos Destacados
+            </h2>
+            
+            <div class="grid">
+                
+                <article class="project-card">
+                    <header>
+                        <span class="tag">Web App</span>
+                        <h3>Dashboard Analítico</h3>
+                    </header>
+                    <p>Una plataforma de visualización de datos en tiempo real construida con React y D3.js. Optimización de rendimiento y modo oscuro automático.</p>
+                    <footer>
+                        <a href="#" role="button" class="outline" style="width: 100%;">
+                            <i class="fab fa-github"></i> Ver Código
+                        </a>
+                    </footer>
+                </article>
+
+                <article class="project-card">
+                    <header>
+                        <span class="tag">E-Commerce</span>
+                        <h3>Shopify Headless</h3>
+                    </header>
+                    <p>Tienda online ultrarrápida utilizando Next.js como frontend y Shopify como CMS. Integración con pasarelas de pago Stripe.</p>
+                    <footer>
+                        <a href="#" role="button" class="outline" style="width: 100%;">
+                            <i class="fas fa-external-link-alt"></i> Ver Demo
+                        </a>
+                    </footer>
+                </article>
+
+                <article class="project-card">
+                    <header>
+                        <span class="tag">Backend</span>
+                        <h3>API RESTful Segura</h3>
+                    </header>
+                    <p>Arquitectura de microservicios en Node.js con autenticación JWT y base de datos PostgreSQL. Documentación automática con Swagger.</p>
+                    <footer>
+                        <a href="#" role="button" class="outline" style="width: 100%;">
+                            <i class="fab fa-github"></i> Ver Código
+                        </a>
+                    </footer>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="habilidades">
+            <div class="grid">
+                <div>
+                    <h3><i class="fas fa-server"></i> Data & Tech</h3>
+                    <div class="skills-container">
+                        <span class="skill-badge">Oracle SQL</span>
+                        <span class="skill-badge">MySQL / MariaDB</span>
+                        <span class="skill-badge">R / RStudio</span>
+                        <span class="skill-badge">Stata</span>
+                        <span class="skill-badge">Java (Certificado)</span>
+                        <span class="skill-badge">Git & GitHub</span>
+                    </div>
+                </div>
+                <div>
+                    <h3><i class="fas fa-chess-board"></i> Gestión & Análisis</h3>
+                    <div class="skills-container">
+                        <span class="skill-badge">Control de Gestión</span>
+                        <span class="skill-badge">Desarrollo Económico</span>
+                        <span class="skill-badge">Balanced Scorecard</span>
+                        <span class="skill-badge">KPI Design</span>
+                        <span class="skill-badge">Análisis Estadístico</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="container">
+        <small>Construido con <a href="https://picocss.com">Pico</a> • © 2024 [Tu Nombre]</small>
+    </footer>
+
+<script>
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const links = document.querySelectorAll(".nav-links li a");
+
+    // 1. Alternar menú al hacer clic en el botón hamburguesa
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navLinks.classList.toggle("active");
+    });
+
+    // 2. Cerrar menú al hacer clic en cualquier enlace
+    links.forEach(link => {
+        link.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navLinks.classList.remove("active");
+        });
+    });
+</script>
+
+</body>
+</html>

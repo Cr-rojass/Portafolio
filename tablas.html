@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Estratégico con Vinculación FODA</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            gap: 60px;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL DEL MAPA --- */
+        .map-container {
+            width: 1100px;
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 180px 1fr; /* Columna Izq (Perspectivas) - Columna Der (Objetivos) */
+            grid-template-rows: auto auto auto auto auto auto; /* Header + 5 Perspectivas */
+            border: 1px solid #ddd;
+        }
+
+        /* --- HEADER DEL MAPA --- */
+        .map-header {
+            grid-column: 1 / -1;
+            background-color: #1F3A60; /* Azul Institucional */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid #D93644;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .map-title {
+            font-size: 28px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .map-subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+        /* --- COLUMNA DE PERSPECTIVAS (ROJA) --- */
+        .perspective-col {
+            background-color: #EE404C; /* Rojo del Mapa */
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            border-bottom: 2px solid white;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- ÁREA DE OBJETIVOS (CANVAS) --- */
+        .objectives-area {
+            position: relative; /* Para posicionar flechas SVG */
+            background-color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid #1F3A60;
+        }
+
+        /* --- CAJAS DE OBJETIVOS --- */
+        .obj-box {
+            background: linear-gradient(135deg, #f8bbd0 0%, #f48fb1 100%); /* Rosado degradado */
+            color: #1F3A60;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            width: 160px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            position: absolute; /* Posicionamiento absoluto manual para replicar el mapa */
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 50px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .obj-box.mandante {
+            background: linear-gradient(135deg, #9FA8DA 0%, #7986CB 100%); /* Azul grisaceo para Mandante */
+            color: white;
+            width: 600px;
+            font-size: 14px;
+        }
+
+        /* --- TAGS DE FODA (BADGES) --- */
+        .swot-tag {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 10;
+            border: 2px solid white;
+        }
+
+        .tag-strength { background-color: #2E7D32; } /* Verde */
+        .tag-weakness { background-color: #C62828; } /* Rojo */
+        .tag-threat { background-color: #EF6C00; }   /* Naranja */
+
+        /* --- FLECHAS SVG --- */
+        svg.arrows {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        line, path {
+            stroke: #1F3A60;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        /* --- LEYENDA --- */
+        .legend {
+            grid-column: 1 / -1;
+            background-color: #fafafa;
+            padding: 15px;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #ddd;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* --- LAYOUT ESPECÍFICO (Replicando image_9207e1.jpg) --- */
+        /* Alturas de fila */
+        .row-mandante { height: 80px; }
+        .row-usuarios { height: 100px; }
+        .row-procesos { height: 120px; }
+        .row-recursos { height: 120px; }
+        .row-aprendizaje { height: 120px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- DEFINICIÓN DE FLECHA SVG (Invisible, usada por referencia) -->
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#1F3A60" />
+            </marker>
+        </defs>
+    </svg>
+
+    <!-- ========================================== -->
+    <!-- MAPA 1: RELACIÓN CON FORTALEZAS (PALANCAS) -->
+    <!-- ========================================== -->
+    <div class="map-container">
+        <div class="map-header">
+            <h1 class="map-title">Mapa N°1: Vinculación con Fortalezas</h1>
+            <div class="map-subtitle">Cómo el DIMOE utiliza sus activos estratégicos (F)</div>
+        </div>
+
+        <!-- Perspectivas -->
+        <div class="perspective-col row-mandante">Mandante</div>
+        <div class="objectives-area row-mandante">
+            <div class="obj-box mandante" style="top: 20px;">Generar conocimiento y estadísticas de calidad para política pública</div>
+        </div>
+
+        <div class="perspective-col row-usuarios">Usuarios</div>
+        <div class="objectives-area row-usuarios">
+            <div class="obj-box" style="left: 150px; top: 30px;">Mejorar Satisfacción y Confianza
+                <div class="swot-tag tag-strength">F4, F5</div>
+            </div>
+            <div class="obj-box" style="left: 550px; top: 30px;">Potenciar Acceso a Información
+                <div class="swot-tag tag-strength">F1, F3</div>
+            </div>
+        </div>
+
+        <div class="perspective-col row-procesos">Procesos<br>Internos</div>
+        <div class="objectives-area row-procesos">
+            <div class="obj-box" style="left: 50px; top: 40px;">Garantizar Seguridad</div>
+            <div class="obj-box" style="left: 250px; top: 40px;">Optimizar Proc. Recolección
+                <div class="swot-tag tag-strength">F3</div>
+            </div>
+            <div class="obj-box" style="left: 450px; top: 40px;">Fortalecer Capacidad Operativa</div>
+            <div class="obj-box" style="left: 650px; top: 40px;">Ampliar Cobertura</div>
+        </div>
+
+        <div class="perspective-col row-recursos">Recursos</div>
+        <div class="objectives-area row-recursos">
+            <div class="obj-box" style="left: 250px; top: 40px;">Optimizar Gestión Recursos</div>
+            <div class="obj-box" style="left: 550px; top: 20px;">Diversificar Financiamiento</div>
+            <div class="obj-box" style="left: 720px; top: 40px;">Sostener Servicios</div>
+            
+            <!-- Flechas SVG -->
+            <svg class="arrows">
+                <!-- Recursos -> Procesos -->
+                <line x1="330" y1="40" x2="330" y2="-50" /> <!-- Opt Rec -> Opt Proc -->
+                <line x1="330" y1="40" x2="130" y2="-50" /> <!-- Opt Rec -> Seguridad -->
+                <line x1="330" y1="40" x2="530" y2="-50" /> <!-- Opt Rec -> Fortalecer -->
+                <line x1="800" y1="40" x2="730" y2="-50" /> <!-- Sostener -> Ampliar -->
+            </svg>
+        </div>
+
+        <div class="perspective-col row-aprendizaje">Aprendizaje y<br>Crecimiento</div>
+        <div class="objectives-area row-aprendizaje">
+            <div class="obj-box" style="left: 50px; top: 30px;">Desarrollar Competencias
+                <div class="swot-tag tag-strength">F2</div>
+            </div>
+            <div class="obj-box" style="left: 220px; top: 30px;">Fomentar Innovación
+                <div class="swot-tag tag-strength">F2, F3</div>
+            </div>
+            <div class="obj-box" style="left: 390px; top: 30px;">Optimizar Relevancia</div>
+            <div class="obj-box" style="left: 560px; top: 30px;">Mejorar Comunicación</div>
+            <div class="obj-box" style="left: 730px; top: 30px;">Promover Cultura Mejora</div>
+
+            <!-- Flechas SVG -->
+            <svg class="arrows">
+                <!-- Apren -> Recursos -->
+                <line x1="130" y1="30" x2="330" y2="-80" /> <!-- Competencias -> Opt Rec -->
+                <line x1="300" y1="30" x2="330" y2="-80" /> <!-- Innovacion -> Opt Rec -->
+                <line x1="470" y1="30" x2="630" y2="-100" /> <!-- Relevancia -> Diversificar -->
+                <line x1="810" y1="30" x2="800" y2="-80" /> <!-- Cultura -> Sostener -->
+            </svg>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item"><div class="circle" style="background: #2E7D32;"></div> <strong>F1-F5:</strong> Fortalezas que impulsan este objetivo.</div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- MAPA 2: RELACIÓN CON DEBILIDADES (BRECHAS) -->
+    <!-- ========================================== -->
+    <div class="map-container">
+        <div class="map-header">
+            <h1 class="map-title">Mapa N°2: Vinculación con Debilidades</h1>
+            <div class="map-subtitle">Qué objetivos deben cerrar las brechas internas (D)</div>
+        </div>
+
+        <!-- Perspectivas -->
+        <div class="perspective-col row-mandante">Mandante</div>
+        <div class="objectives-area row-mandante">
+            <div class="obj-box mandante" style="top: 20px;">Generar conocimiento y estadísticas de calidad para política pública</div>
+        </div>
+
+        <div class="perspective-col row-usuarios">Usuarios</div>
+        <div class="objectives-area row-usuarios">
+            <div class="obj-box" style="left: 150px; top: 30px;">Mejorar Satisfacción y Confianza</div>
+            <div class="obj-box" style="left: 550px; top: 30px;">Potenciar Acceso a Información
+                <div class="swot-tag tag-weakness">D2</div>
+            </div>
+             <!-- Flechas SVG -->
+             <svg class="arrows">
+                <!-- Procesos -> Usuarios -->
+                <line x1="130" y1="130" x2="230" y2="80" /> <!-- Seguridad -> Satisfaccion -->
+                <line x1="330" y1="130" x2="230" y2="80" /> <!-- Opt Proc -> Satisfaccion -->
+                <line x1="530" y1="130" x2="630" y2="80" /> <!-- Fortalecer -> Acceso -->
+                <line x1="730" y1="130" x2="630" y2="80" /> <!-- Ampliar -> Acceso -->
+           </svg>
+        </div>
+
+        <div class="perspective-col row-procesos">Procesos<br>Internos</div>
+        <div class="objectives-area row-procesos">
+            <div class="obj-box" style="left: 50px; top: 40px;">Garantizar Seguridad
+                <div class="swot-tag tag-weakness">D4</div>
+            </div>
+            <div class="obj-box" style="left: 250px; top: 40px;">Optimizar Proc. Recolección</div>
+            <div class="obj-box" style="left: 450px; top: 40px;">Fortalecer Capacidad Operativa
+                <div class="swot-tag tag-weakness">D1</div>
+            </div>
+            <div class="obj-box" style="left: 650px; top: 40px;">Ampliar Cobertura</div>
+        </div>
+
+        <div class="perspective-col row-recursos">Recursos</div>
+        <div class="objectives-area row-recursos">
+            <div class="obj-box" style="left: 250px; top: 40px;">Optimizar Gestión Recursos</div>
+            <div class="obj-box" style="left: 550px; top: 20px;">Diversificar Financiamiento</div>
+            <div class="obj-box" style="left: 720px; top: 40px;">Sostener Servicios
+                <div class="swot-tag tag-weakness">D3</div>
+            </div>
+             <!-- Flechas SVG -->
+             <svg class="arrows">
+                 <!-- Recursos -> Procesos -->
+                 <line x1="330" y1="40" x2="530" y2="-50" /> <!-- Opt Rec -> Fortalecer -->
+            </svg>
+        </div>
+
+        <div class="perspective-col row-aprendizaje">Aprendizaje y<br>Crecimiento</div>
+        <div class="objectives-area row-aprendizaje">
+            <div class="obj-box" style="left: 50px; top: 30px;">Desarrollar Competencias</div>
+            <div class="obj-box" style="left: 220px; top: 30px;">Fomentar Innovación</div>
+            <div class="obj-box" style="left: 390px; top: 30px;">Optimizar Relevancia</div>
+            <div class="obj-box" style="left: 560px; top: 30px;">Mejorar Comunicación</div>
+            <div class="obj-box" style="left: 730px; top: 30px;">Promover Cultura Mejora</div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="circle" style="background: #C62828;"></div> <strong>D1-D4:</strong> Debilidades que este objetivo busca corregir.</div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MAPA 3: RELACIÓN CON AMENAZAS (ESCUDOS) -->
+    <!-- ========================================== -->
+    <div class="map-container">
+        <div class="map-header">
+            <h1 class="map-title">Mapa N°3: Vinculación con Amenazas</h1>
+            <div class="map-subtitle">Qué objetivos protegen a la organización (A)</div>
+        </div>
+
+        <!-- Perspectivas -->
+        <div class="perspective-col row-mandante">Mandante</div>
+        <div class="objectives-area row-mandante">
+            <div class="obj-box mandante" style="top: 20px;">Generar conocimiento y estadísticas de calidad para política pública</div>
+        </div>
+
+        <div class="perspective-col row-usuarios">Usuarios</div>
+        <div class="objectives-area row-usuarios">
+            <div class="obj-box" style="left: 150px; top: 30px;">Mejorar Satisfacción y Confianza
+                <div class="swot-tag tag-threat">A3, A4</div>
+            </div>
+            <div class="obj-box" style="left: 550px; top: 30px;">Potenciar Acceso a Información</div>
+        </div>
+
+        <div class="perspective-col row-procesos">Procesos<br>Internos</div>
+        <div class="objectives-area row-procesos">
+            <div class="obj-box" style="left: 50px; top: 40px;">Garantizar Seguridad</div>
+            <div class="obj-box" style="left: 250px; top: 40px;">Optimizar Proc. Recolección</div>
+            <div class="obj-box" style="left: 450px; top: 40px;">Fortalecer Capacidad Operativa</div>
+            <div class="obj-box" style="left: 650px; top: 40px;">Ampliar Cobertura</div>
+        </div>
+
+        <div class="perspective-col row-recursos">Recursos</div>
+        <div class="objectives-area row-recursos">
+            <div class="obj-box" style="left: 250px; top: 40px;">Optimizar Gestión Recursos
+                <div class="swot-tag tag-threat">A2</div>
+            </div>
+            <div class="obj-box" style="left: 550px; top: 20px;">Diversificar Financiamiento
+                <div class="swot-tag tag-threat">A1, A2</div>
+            </div>
+            <div class="obj-box" style="left: 720px; top: 40px;">Sostener Servicios</div>
+        </div>
+
+        <div class="perspective-col row-aprendizaje">Aprendizaje y<br>Crecimiento</div>
+        <div class="objectives-area row-aprendizaje">
+            <div class="obj-box" style="left: 50px; top: 30px;">Desarrollar Competencias</div>
+            <div class="obj-box" style="left: 220px; top: 30px;">Fomentar Innovación</div>
+            <div class="obj-box" style="left: 390px; top: 30px;">Optimizar Relevancia</div>
+            <div class="obj-box" style="left: 560px; top: 30px;">Mejorar Comunicación</div>
+            <div class="obj-box" style="left: 730px; top: 30px;">Promover Cultura Mejora
+                <div class="swot-tag tag-threat">A5</div>
+            </div>
+             <!-- Flechas SVG -->
+             <svg class="arrows">
+                 <!-- Apren -> Recursos -->
+                 <line x1="810" y1="30" x2="800" y2="-80" /> <!-- Cultura -> Sostener -->
+                 <line x1="640" y1="30" x2="800" y2="-80" /> <!-- Comunicacion -> Sostener -->
+            </svg>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="circle" style="background: #EF6C00;"></div> <strong>A1-A5:</strong> Amenazas que este objetivo neutraliza.</div>
+        </div>
+    </div>
+
+</body>
+</html>
