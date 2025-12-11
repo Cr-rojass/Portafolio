@@ -49,7 +49,7 @@
             </div>
             <div class="hero-buttons">
 
-                <a href="CV_Cristian_Rojas_Salamanca_2025_v3.pdf" target="_blank" role="button" class="btn-primary">
+                <a href="/assets/docs/CV_Cristian_Rojas_Salamanca_2025_portafolio.pdf" target="_blank" role="button" class="btn-primary">
                     <i class="fas fa-file-pdf"></i> Descargar CV
                 </a>
                 
@@ -735,16 +735,35 @@
     btnOpt2.addEventListener('click', () => handleDecision('B'));
 
 
-    // --- BOTÓN MÁGICO PARA CAMBIAR TEMA MANUALMENTE ---
-    const btnMagic = document.getElementById('btn-magic-theme');
-    
-    if(btnMagic) { // Solo si agregaste el botón al HTML
-        btnMagic.addEventListener('click', () => {
-            // Elegir uno nuevo al azar
-            const newIndex = Math.floor(Math.random() * themes.length);
-            applyTheme(themes[newIndex]);
-        });
-    }
+// --- BOTÓN MÁGICO AVANZADO (Con Giro) ---
+const btnMagic = document.getElementById('btn-magic-theme');
+
+if (btnMagic) {
+    const iconMagic = btnMagic.querySelector('i'); // Seleccionamos el icono dentro
+
+    btnMagic.addEventListener('click', () => {
+        // 1. ANIMACIÓN: Girar 360 grados
+        iconMagic.style.transition = "transform 0.5s ease";
+        iconMagic.style.transform = "rotate(360deg)";
+
+        // Resetear el giro después de 0.5s para poder girar de nuevo
+        setTimeout(() => {
+            iconMagic.style.transition = "none";
+            iconMagic.style.transform = "rotate(0deg)";
+        }, 500);
+
+        // 2. LÓGICA: Elegir tema nuevo (evitando repetir el mismo color actual)
+        let newIndex;
+        const currentColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+        
+        // Bucle "do-while": Sigue buscando mientras el color elegido sea igual al actual
+        do {
+            newIndex = Math.floor(Math.random() * themes.length);
+        } while (themes[newIndex].color.toLowerCase() === currentColor.toLowerCase());
+
+        applyTheme(themes[newIndex]);
+    });
+}
     </script>
 
 </body>
