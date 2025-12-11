@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="assets/css/style.css">
@@ -46,14 +47,25 @@
                 <span class="skill-badge">Mentoring Técnico</span>
                 <span class="skill-badge">Gestión Pública</span>
             </div>
-            <div style="margin-top: 2.5rem; animation: fadeInUp 0.8s ease-out 0.6s forwards; opacity: 0;">
-                <a href="CV_Cristian_Rojas_Salamanca.pdf" target="_blank" role="button" 
-                style="background-color: var(--primary); border-color: var(--primary); margin-right: 1rem;">
-                <i class="fas fa-file-pdf"></i> Descargar CV
+            <div class="hero-buttons">
+
+                <a href="CV_Cristian_Rojas_Salamanca_2025_v3.pdf" target="_blank" role="button" class="btn-primary">
+                    <i class="fas fa-file-pdf"></i> Descargar CV
                 </a>
+                
                 <a href="https://linkedin.com/in/tu-usuario" target="_blank" role="button" class="outline">
-                <i class="fab fa-linkedin"></i> LinkedIn
+                    <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
+
+                <a href="#playground" role="button" class="outline">
+                    <i class="fas fa-gamepad"></i> Playground
+                </a>
+                <button id="btn-magic-theme" class="outline" 
+                    style="border-radius: 50%; width: 50px; height: 50px; padding: 0; display: flex; align-items: center; justify-content: center; border-color: var(--muted); color: var(--muted);" 
+                    title="Cambiar Tema Visual">
+                    <i class="fas fa-palette"></i>
+                </button>
+
             </div>
         </header>
 
@@ -97,10 +109,10 @@
             <div class="timeline">
                 
                 <div class="timeline-item">
-                    <div class="timeline-date">2024 - Presente</div>
+                    <div class="timeline-date">2025 - Presente</div>
                     <div class="timeline-content">
-                        <h3>Tutor Asistente Full Stack Java</h3>
-                        <p><strong>Talento Digital para Chile.</strong><br>
+                        <h3>Asistente de Tutor Full Stack Java</h3>
+                        <p><strong>Bibernum para Talento Digital para Chile.</strong><br>
                         Facilitador técnico y pedagógico en la formación de nuevos desarrolladores. 
                         Apoyo en la resolución de problemas de código (Java, SpringBoot, SQL), 
                         revisión de proyectos y mentoría para asegurar la curva de aprendizaje de los estudiantes.</p>
@@ -173,7 +185,7 @@
                         <span class="tag">Data Science & Estadística</span>
                             <h3>Geo Muestreo Nacional</h3>
                     </header>
-                        <p>Metodología innovadora para estudios nacionales presentada en el <em>X Congreso Latinoamericano de Estadística</em>. Uso de herramientas de georreferenciación y análisis muestral para optimizar recursos en terreno[cite: 36, 37].</p>
+                        <p>Metodología innovadora para estudios nacionales presentada en el <em>X Congreso Latinoamericano de Estadística</em>. Uso de herramientas de georreferenciación y análisis muestral para optimizar recursos en terreno.</p>
                     <footer>
                         <a href="http://conferencias.unc.edu.ar/index.php/xclatse/clatse2012/paper/view/281" target="_blank" role="button" class="outline" style="width: 100%;">
                         <i class="fas fa-book-open"></i> Ver Publicación
@@ -196,6 +208,132 @@
                 </article>
             </div>
         </section>
+<br>
+<br>
+
+<section id="playground" class="container">
+    <h2><i class="fas fa-calculator"></i> Simulador de Inversión</h2>
+    <p>Calcula el poder del interés compuesto en tiempo real.</p>
+
+    <article class="project-card" style="max-width: 600px; margin: 0 auto;">
+        
+        <div class="grid">
+            <label for="input-capital">
+                Capital Inicial ($)
+                <input type="number" id="input-capital" placeholder="Ej: 1000000">
+            </label>
+
+            <label for="input-tasa">
+                Tasa Anual (%)
+                <input type="number" id="input-tasa" placeholder="Ej: 5">
+            </label>
+            
+            <label for="input-anos">
+                Años
+                <input type="number" id="input-anos" placeholder="Ej: 10">
+            </label>
+        </div>
+
+        <button id="btn-calcular" style="margin-top: 1rem; width: 100%;">
+            Calcular Retorno
+        </button>
+
+        <div id="resultado" style="margin-top: 2rem; text-align: center; display: none;">
+            <small>Tu capital crecerá hasta:</small>
+                <h3 style="color: var(--primary); font-size: 2rem; margin: 0; margin-bottom: 1rem;">
+                    $<span id="valor-final">0</span>
+                </h3>
+
+            <div style="position: relative; height: 300px; width: 100%;">
+                <canvas id="graficoInversion"></canvas>
+            </div>
+        </div>
+    </article>
+<br>
+<br>
+    <article class="project-card" style="max-width: 800px; margin: 3rem auto;">
+    <header style="text-align: center;">
+        <span class="tag">API Integration</span>
+        <h3>Evaluación de Desempeño Pokémon</h3>
+        <p>Consulta la base de datos de RRHH en tiempo real.</p>
+    </header>
+
+    <div class="grid" style="grid-template-columns: 2fr 1fr; gap: 1rem; align-items: end;">
+        <label>
+            Nombre del Candidato (Pokémon)
+            <input type="text" id="poke-input" placeholder="ej: pikachu, mewtwo, lucario">
+        </label>
+        <button id="btn-buscar-poke" class="outline">
+            <i class="fas fa-search"></i> Evaluar
+        </button>
+    </div>
+
+    <div id="poke-card" style="display: none; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
+        
+        <div class="grid">
+            <div style="text-align: center;">
+                <img id="poke-img" src="" alt="Pokemon" style="width: 150px; height: 150px; filter: drop-shadow(0 0 10px rgba(142, 68, 173, 0.5));">
+                <h2 id="poke-name" style="text-transform: capitalize; margin-bottom: 0;">Nombre</h2>
+                <small id="poke-type" style="color: var(--primary); font-weight: bold;">TIPO</small>
+            </div>
+
+            <div>
+                <label>Productividad (Ataque)</label>
+                <progress id="kpi-ataque" value="0" max="150"></progress>
+                
+                <label>Gestión de Crisis (Defensa)</label>
+                <progress id="kpi-defensa" value="0" max="150"></progress>
+                
+                <label>Velocidad de Entrega (Speed)</label>
+                <progress id="kpi-velocidad" value="0" max="150"></progress>
+                
+                <article style="background: rgba(255,255,255,0.05); padding: 1rem; margin-top: 1rem; text-align: center;">
+                    <small>Costo Mensual (Experiencia Base)</small>
+                    <h3 id="poke-costo" style="color: #4ade80; margin: 0;">$0</h3>
+                </article>
+            </div>
+        </div>
+    </div>
+</article>
+<br>
+<br>
+<article class="project-card" style="max-width: 800px; margin: 4rem auto; border: 1px solid var(--primary);">
+    <header style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
+        <div>
+            <span class="tag">Simulación de Gestión</span>
+            <h3 style="margin: 0;">Alcalde Simulator 2025</h3>
+        </div>
+        <button id="btn-start-game" style="padding: 5px 15px; font-size: 0.8rem;">▶ Iniciar Gestión</button>
+    </header>
+
+    <div class="grid" style="text-align: center; margin: 2rem 0;">
+        
+        <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px;">
+            <small>Presupuesto Municipal</small>
+            <h4 id="game-budget" style="color: #4ade80; margin: 0;">$0</h4>
+        </div>
+
+        <div style="background: rgba(59, 130, 246, 0.1); padding: 1rem; border-radius: 8px;">
+            <small>Aprobación Ciudadana</small>
+            <h4 id="game-approval" style="color: #60a5fa; margin: 0;">0%</h4>
+        </div>
+
+        <div style="background: rgba(139, 92, 246, 0.1); padding: 1rem; border-radius: 8px;">
+            <small>Días de Gestión</small>
+            <h4 id="game-day" style="color: #a78bfa; margin: 0;">Día 0</h4>
+        </div>
+    </div>
+
+    <div id="game-screen" style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 8px; min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <p id="event-text" style="font-size: 1.2rem; color: var(--muted);">Presiona Iniciar para comenzar tu mandato...</p>
+        
+        <div id="decision-buttons" style="display: none; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; justify-content: center;">
+            <button id="btn-opt-1" class="outline">Opción A</button>
+            <button id="btn-opt-2" class="outline">Opción B</button>
+        </div>
+    </div>
+</article>
+</section>
 
         <footer class="container" id="contacto">
             <small>Diseñado por Cristian Rojas • © 2025</small>
@@ -204,21 +342,409 @@
     </main>
 
     <script>
-        const hamburger = document.querySelector(".hamburger");
-        const navLinks = document.querySelector(".nav-links");
-        const links = document.querySelectorAll(".nav-links li a");
+// 1. VARIABLES
+    const inputCapital = document.getElementById('input-capital');
+    const inputTasa = document.getElementById('input-tasa');
+    const inputAnos = document.getElementById('input-anos');
+    const btnCalcular = document.getElementById('btn-calcular');
+    const resultadoDiv = document.getElementById('resultado');
+    const valorFinalSpan = document.getElementById('valor-final');
+    let miGrafico; 
 
-        hamburger.addEventListener("click", () => {
-            hamburger.classList.toggle("active");
-            navLinks.classList.toggle("active");
-        });
+// --- SISTEMA DE TEMAS ALEATORIOS (CAMALEÓN) ---
+    
+// --- SISTEMA DE TEMAS AVANZADO (CAMALEÓN 2.0) ---
+    
+    const themes = [
+        { 
+            name: 'Original Purple', 
+            color: '#8e44ad', 
+            hover: '#9b59b6',
+            overlay: 'rgba(15, 23, 42, 0.9)', // Azul muy oscuro (Original)
+            bg: '#0f172a' 
+        },
+        { 
+            name: 'Cyberpunk Pink',  
+            color: '#ff00ff', 
+            hover: '#ff66ff',
+            overlay: 'rgba(40, 0, 40, 0.9)', // Púrpura oscuro
+            bg: '#1a051a' // Fondo casi negro con toque rosado
+        },
+        { 
+            name: 'Matrix Green',    
+            color: '#00ff41', 
+            hover: '#00cc33',
+            overlay: 'rgba(0, 20, 0, 0.92)', // Negro verdoso
+            bg: '#051a05' // Verde muy oscuro
+        },
+        { 
+            name: 'Tron Blue',       
+            color: '#00f2ff', 
+            hover: '#00c3cc',
+            overlay: 'rgba(0, 20, 40, 0.9)', // Azul cián oscuro
+            bg: '#05151a' 
+        },
+        { 
+            name: 'Sith Red',        
+            color: '#ff0000', 
+            hover: '#ff4d4d',
+            overlay: 'rgba(40, 0, 0, 0.9)', // Rojo sangre oscuro
+            bg: '#1a0505'
+        },
+        { 
+            name: 'Golden Legend',   
+            color: '#ffd700', 
+            hover: '#ffea00',
+            overlay: 'rgba(40, 35, 0, 0.9)', // Dorado oscuro
+            bg: '#1a1805'
+        }
+    ];
 
-        links.forEach(link => {
-            link.addEventListener("click", () => {
-                hamburger.classList.remove("active");
-                navLinks.classList.remove("active");
-            });
+    function applyTheme(theme) {
+        const root = document.documentElement;
+        
+        // 1. Cambiamos los colores principales (Botones, textos)
+        root.style.setProperty('--primary', theme.color);
+        root.style.setProperty('--primary-hover', theme.hover);
+        
+        // 2. Cambiamos el "Ambiente" (Fondo e Imagen del Hero)
+        root.style.setProperty('--hero-overlay', theme.overlay);
+        root.style.setProperty('--bg-body', theme.bg);
+        
+        console.log(`%c Tema: ${theme.name} `, `background: ${theme.color}; color: #000; padding: 5px;`);
+    }
+
+    // Inicialización aleatoria
+    const randomIndex = Math.floor(Math.random() * themes.length);
+    applyTheme(themes[randomIndex]);
+    
+    // Si tienes el botón mágico, recuerda actualizar su listener también para que use esta lista nueva
+
+    // MENÚ MÓVIL
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const links = document.querySelectorAll(".nav-links li a");
+
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navLinks.classList.toggle("active");
+    });
+    
+    links.forEach(link => {
+        link.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navLinks.classList.remove("active");
         });
+    });
+
+    // 2. LÓGICA DE CÁLCULO Y GRÁFICO
+    btnCalcular.addEventListener('click', () => {
+        
+        // A. Captura de datos
+        const capital = parseFloat(inputCapital.value);
+        const tasa = parseFloat(inputTasa.value);
+        const anos = parseFloat(inputAnos.value);
+        
+        // B. Validación
+        if (isNaN(capital) || isNaN(tasa) || isNaN(anos) || capital <= 0 || tasa <= 0 || anos <= 0) {
+            alert('Por favor, ingresa valores válidos para todos los campos.'); 
+            return;
+        }
+
+        // --- C. GENERACIÓN DE DATOS PARA EL GRÁFICO ---
+        const etiquetas = []; // Eje X (Años)
+        const datos = [];     // Eje Y (Dinero)
+        
+        let capitalAcumulado = capital;
+
+        // Bucle: año por año calculando el interés
+        for (let i = 0; i <= anos; i++) {
+            etiquetas.push(`Año ${i}`);
+            datos.push(capitalAcumulado);
+            
+            // Fórmula de interés compuesto 
+            capitalAcumulado = capitalAcumulado * (1 + tasa / 100);
+        }
+
+        // --- D. MOSTRAR RESULTADO EN TEXTO ---
+        const valorfinal = datos[datos.length - 1];
+
+        const valorFormateado = new Intl.NumberFormat('es-CL', {
+            style: 'currency',
+            currency: 'CLP',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }).format(valorfinal);
+
+        valorFinalSpan.innerText = valorFormateado;
+        resultadoDiv.style.display = 'block';
+
+        // --- E. DIBUJAR EL GRÁFICO CON CHART.JS ---
+        const ctx = document.getElementById('graficoInversion').getContext('2d');
+
+        // Si ya existe un gráfico anterior, se destruye para limpiar el canvas
+        if (miGrafico) {
+            miGrafico.destroy();
+        }
+
+        // crea el nuevo gráfico
+        miGrafico = new Chart(ctx, {
+            type: 'line', 
+            data: {
+                labels: etiquetas, // Los años
+                datasets: [{
+                    label: 'Crecimiento de Capital',
+                    data: datos,   // El dinero
+                    borderColor: '#8e44ad', 
+                    backgroundColor: 'rgba(142, 68, 173, 0.2)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#fff',
+                    fill: true,
+                    tension: 0.4 
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#cbd5e1' } }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#94a3b8' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    x: {
+                        ticks: { color: '#94a3b8' },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    });
+
+    // --- LÓGICA DEL POKE-KPI DASHBOARD ---
+    
+    // 1. Selección de Elementos
+    const pokeInput = document.getElementById('poke-input');
+    const btnBuscarPoke = document.getElementById('btn-buscar-poke');
+    const pokeCard = document.getElementById('poke-card');
+    
+    // Elementos donde pondremos la info
+    const imgPoke = document.getElementById('poke-img');
+    const namePoke = document.getElementById('poke-name');
+    const typePoke = document.getElementById('poke-type');
+    const kpiAtaque = document.getElementById('kpi-ataque');
+    const kpiDefensa = document.getElementById('kpi-defensa');
+    const kpiVelocidad = document.getElementById('kpi-velocidad');
+    const costoPoke = document.getElementById('poke-costo');
+
+    // 2. La Función Asíncrona (Async/Await)
+    btnBuscarPoke.addEventListener('click', async () => {
+        
+        const nombre = pokeInput.value.toLowerCase().trim();
+        
+        if (!nombre) {
+            alert("Por favor escribe un nombre.");
+            return;
+        }
+
+        try {
+            // A. Pedimos los datos a la API
+            const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${nombre}`);
+            
+            // Si el pokemon no existe (Error 404)
+            if (!respuesta.ok) {
+                alert("¡Candidato no encontrado en la base de datos!");
+                return;
+            }
+
+            // B. convierte la respuesta a JSON (Objetos de JS)
+            const data = await respuesta.json();
+
+            // C. Llenamos la tarjeta con los datos (Mapeo)
+            
+            // Imagen y Texto
+            imgPoke.src = data.sprites.other['official-artwork'].front_default || data.sprites.front_default;
+            namePoke.innerText = data.name;
+            typePoke.innerText = data.types.map(t => t.type.name).join(' | ').toUpperCase();
+
+            // KPIs (Mapeamos stats del juego a conceptos de empresa)
+            // Stats array: 0:hp, 1:attack, 2:defense, 3:special-attack, 4:special-defense, 5:speed
+            
+            // Ataque -> Productividad
+            kpiAtaque.value = data.stats[1].base_stat; 
+            
+            // Defensa -> Gestión de Crisis
+            kpiDefensa.value = data.stats[2].base_stat;
+            
+            // Velocidad -> Velocidad de Entrega
+            kpiVelocidad.value = data.stats[5].base_stat;
+
+            // Base Experience -> Sueldo
+            const sueldo = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(data.base_experience * 1000);
+            costoPoke.innerText = sueldo;
+
+            // D. muestra la tarjeta
+            pokeCard.style.display = 'block';
+
+        } catch (error) {
+            console.error(error);
+            alert("Error de conexión con el servidor de RRHH.");
+        }
+    });
+
+
+    // --- LÓGICA DE ALCALDE SIMULATOR 2025 ---
+
+    // 1. REFERENCIAS AL HTML 
+    const uiBudget = document.getElementById('game-budget');
+    const uiApproval = document.getElementById('game-approval');
+    const uiDay = document.getElementById('game-day');
+    const uiText = document.getElementById('event-text');
+    const uiButtons = document.getElementById('decision-buttons');
+    const btnStart = document.getElementById('btn-start-game');
+    const btnOpt1 = document.getElementById('btn-opt-1');
+    const btnOpt2 = document.getElementById('btn-opt-2');
+
+    // 2. CONFIGURACIÓN INICIAL 
+    let gameState = {
+        budget: 100000000, // 100 Millones
+        approval: 50,      // 50%
+        day: 0,
+        active: false,
+        currentEvent: null // se guarda el problema actual
+    };
+
+    // 3. BASE DE DATOS DE CRISIS
+    const crisisDeck = [
+        {
+            msg: "🚨 ¡Huelga de Basura! Los vecinos reclaman.",
+            optA: { txt: "Negociar Bono ($15M)", cost: 15000000, effect: 10 },
+            optB: { txt: "Rompehuelgas ($2M)", cost: 2000000, effect: -15 }
+        },
+        {
+            msg: "🏫 Techo de colegio se llueve.",
+            optA: { txt: "Reparación Full ($8M)", cost: 8000000, effect: 5 },
+            optB: { txt: "Poner Baldes ($0)", cost: 0, effect: -10 }
+        },
+        {
+            msg: "🎉 Festival Comunal de Jazz.",
+            optA: { txt: "Traer Artistas ($20M)", cost: 20000000, effect: 15 },
+            optB: { txt: "Solo locales ($1M)", cost: 1000000, effect: 2 }
+        },
+        {
+            msg: "🌳 Plaga en plaza principal.",
+            optA: { txt: "Fumigación Eco ($5M)", cost: 5000000, effect: 5 },
+            optB: { txt: "Cortar todo ($500k)", cost: 500000, effect: -5 }
+        }
+    ];
+
+    // 4. FUNCIONES DE ACTUALIZACIÓN VISUAL
+    function updateDashboard() {
+        // Formatear dinero bonito
+        uiBudget.innerText = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(gameState.budget);
+        
+        // Colores dinámicos para aprobación
+        uiApproval.innerText = gameState.approval + "%";
+        uiApproval.style.color = gameState.approval > 50 ? '#4ade80' : '#f87171'; // Verde si >50, Rojo si no
+
+        uiDay.innerText = "Día " + gameState.day;
+    }
+
+    // 5. MOTOR DE EVENTOS 
+    function triggerEvent() {
+        // crisis al azar del mazo
+        // Math.floor(Math.random() * cantidad) --> da un índice aleatorio
+        const randomIndex = Math.floor(Math.random() * crisisDeck.length);
+        const event = crisisDeck[randomIndex];
+        
+        // se guarda el evento actual en el estado para saber qué costos aplicar
+        gameState.currentEvent = event;
+
+        // se muestra el problema en pantalla
+        uiText.innerText = event.msg;
+        
+        btnOpt1.innerText = event.optA.txt;
+        btnOpt2.innerText = event.optB.txt;
+        
+        uiButtons.style.display = 'flex';
+    }
+
+    // 6. PROCESAR DECISIÓN
+    function handleDecision(option) {
+        if (!gameState.active) return;
+
+        const event = gameState.currentEvent;
+        const choice = option === 'A' ? event.optA : event.optB;
+
+        // A. Aplicar consecuencias matemáticas
+        gameState.budget -= choice.cost;
+        gameState.approval += choice.effect;
+        gameState.day += 7; // se avanza una semana
+
+        // B. Limitar aprobación entre 0 y 100
+        if (gameState.approval > 100) gameState.approval = 100;
+        if (gameState.approval < 0) gameState.approval = 0;
+
+        // C. Verificar Game Over
+        checkGameOver();
+
+        // D. Actualizar pantalla
+        updateDashboard();
+        
+        // E. Preparar siguiente turno
+        if (gameState.active) {
+            triggerEvent(); // Lanzar otro evento inmediatamente
+        }
+    }
+
+    function checkGameOver() {
+        if (gameState.budget <= 0) {
+            endGame("❌ QUEBRASTE EL MUNICIPIO. Fin del juego.");
+        } else if (gameState.approval <= 10) {
+            endGame("🔥 DESTITUIDO POR ESTALLIDO SOCIAL. Fin del juego.");
+        } else if (gameState.day >= 100) { // Si sobrevives 100 días
+            endGame("🏆 ¡REELECTO! Gestión Exitosa.");
+        }
+    }
+
+    function endGame(message) {
+        gameState.active = false;
+        uiText.innerText = message;
+        uiText.style.color = "var(--primary)";
+        uiButtons.style.display = 'none'; // Ocultar botones
+        btnStart.innerText = "Reintentar";
+        btnStart.style.display = "block"; // Volver a mostrar botón inicio
+    }
+
+    // 7. ESCUCHADORES DE EVENTOS
+    btnStart.addEventListener('click', () => {
+        // Reiniciar variables
+        gameState.budget = 100000000;
+        gameState.approval = 50;
+        gameState.day = 1;
+        gameState.active = true;
+        
+        btnStart.style.display = "none"; // Ocultar botón inicio
+        updateDashboard();
+        triggerEvent();
+    });
+
+    btnOpt1.addEventListener('click', () => handleDecision('A'));
+    btnOpt2.addEventListener('click', () => handleDecision('B'));
+
+
+    // --- BOTÓN MÁGICO PARA CAMBIAR TEMA MANUALMENTE ---
+    const btnMagic = document.getElementById('btn-magic-theme');
+    
+    if(btnMagic) { // Solo si agregaste el botón al HTML
+        btnMagic.addEventListener('click', () => {
+            // Elegir uno nuevo al azar
+            const newIndex = Math.floor(Math.random() * themes.length);
+            applyTheme(themes[newIndex]);
+        });
+    }
     </script>
 
 </body>

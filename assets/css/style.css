@@ -9,10 +9,14 @@
     --muted: #94a3b8;
     --font-family: 'Outfit', sans-serif;
     --spacing-company: 3rem;
+
+    /* NUEVAS VARIABLES PARA EL AMBIENTE */
+    --hero-overlay: rgba(15, 23, 42, 0.9); /* El color que tiñe la foto */
+    --bg-body: #0f172a;                    /* El color de fondo de la página */
 }
 
 body {
-    background-color: var(--background);
+    background-color: var(--bg-body);
     font-family: var(--font-family);
     color: var(--text-main);
     margin: 0;
@@ -103,6 +107,38 @@ header.hero {
     background-color: rgba(15, 23, 42, 0.9);
     border-bottom: 1px solid rgba(255,255,255,0.1);
     margin-bottom: 3rem; /* Separación con el contenido siguiente */
+    /* CAMBIO CLAVE: se usa la variable en lugar del color fijo */
+    background-color: var(--hero-overlay);
+}
+
+/* --- BOTONES DEL HERO (Alineación y Estilos) --- */
+
+.hero-buttons {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;     /* Alineación vertical */
+    gap: 1rem;               /* Espacio uniforme entre botones */
+    flex-wrap: wrap;         /* Si no caben, bajan ordenadamente */
+    margin-top: 2.5rem;
+    
+    /* Animación de entrada */
+    animation: fadeInUp 0.8s ease-out 0.6s forwards;
+    opacity: 0;
+}
+
+/* Clase para el botón sólido (CV) */
+.btn-primary {
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    color: var(--text-main); /* Aseguramos contraste */
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 15px var(--primary);
+    transform: translateY(-2px); /* Pequeño efecto de elevación */
 }
 
 /* Texto Gradiente */
@@ -292,4 +328,24 @@ footer {
     padding: 3rem 0;
     color: var(--muted);
     text-align: center;
+}
+
+/* --- AJUSTE FINAL: Evitar choque de logo en pantallas medianas --- */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .nav-content {
+        padding: 1rem; /* Menos padding lateral */
+        gap: 1rem; /* Reducir hueco entre logo y menú */
+    }
+    
+    .logo {
+        font-size: 1rem; /* Logo un poco más pequeño */
+    }
+    
+    .nav-links {
+        gap: 1rem; /* Enlaces más juntos */
+    }
+    
+    .nav-links a {
+        font-size: 0.9rem; /* Texto un pelín más chico */
+    }
 }
